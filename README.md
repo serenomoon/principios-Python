@@ -1,9 +1,9 @@
-# principios-SOLID
+# Solid Principles
 Guía con ejemplos de los principios SOLID en Python.
 
 Solid representa cinco principios básicos de la programación orientada a objetos.
 
-Single responsibility
+#S#ingle responsibility
 Open/close
 Liskov substitution
 Iterface segregation
