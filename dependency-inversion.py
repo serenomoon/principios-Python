@@ -1,9 +1,9 @@
 #************************************************************
 #************************************************************
 # En el siguiente ejemplo podemos ver como la class SwitchElectrico depende directamente de la class Lampara para funcionar.
-# Usando el principio de dependecia inversa crearemos una nueva class que tomando los methods necesarios, en este caso
+# Usando el principio de dependencia inversa crearemos una nueva class que tomando los methods necesarios, en este caso
 # encendido y apagado, reemplace la dependencia de SwitchElectrico hacia Lampara, dandonos la posibilidad de crear mas classes
-# que utilicen los mismos methods y asi poder reutilizar la class SwitchElectrico, generando un codigo mas limpio y reutilizable.
+# que utilicen los mismos methods y así poder reutilizar la class SwitchElectrico, generando un código mas limpio y reutilizable.
 #************************************************************
 #************************************************************
 
@@ -35,7 +35,7 @@
 
 #************************************************************
 #************************************************************
-# A continuacion importamos ABC y abstractclassmethod para crear una class abstracta que tomara como referencia los methods
+# A continuación importamos ABC y abstractclassmethod para crear una class abstracta que tomara como referencia los methods
 # base que necesitamos usar, en este caso se refiere a que se enciende y que se apaga, luego se la aplicamos como parent a
 # las clases que la utilicen.
 # Ahora SwitchElectrico depende de Switchable y ya no mas de Lampara, pudiendo de esta manera agregar otros objetos que
