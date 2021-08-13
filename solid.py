@@ -1,15 +1,15 @@
 # Usando los principios SOLID para mejorar y ordenar classes y methods:
-# El codigo esta simplificado para el entendimiento, sobre todo las partes de autorizacion.
+# El código esta simplificado para el entendimiento, sobre todo las partes de autorización.
 
 # Aquí tenemos una class Order que se encarga de generar un objeto en base a un pedido, en este caso supongamos
-# que es una tienda de cafe.
+# que es una tienda de café.
 # Dentro de la class tenemos 4 atributos: items(el tipo de producto),quantities(las cantidades de ese producto), 
 # prices(el precio del producto) y status (el estatus del producto).
-# Usando el method add_item podemos agregar un nuevo item al pedido con sus caracteristicas.
+# Usando el method add_item podemos agregar un nuevo item al pedido con sus características.
 # Usando el method total_price obtendremos (luego de haber generado uno o mas productos y que se vayan sumando 
 # al array con append) el precio final de la compra usando un for loop.
 
-# Luego tenemos el method pay, y sus atributos de instancia, que son: payment_type (el tipo de pago) y security_code (el codigo
+# Luego tenemos el method pay, y sus atributos de instancia, que son: payment_type (el tipo de pago) y security_code (el código
 # de seguridad para habilitar dicho pago).
 
 # class Order:
@@ -55,13 +55,13 @@
 # **********************************************************************************
 # S -> SINGLE RESPONSiBILITY PRINCIPLE.
 
-# El problema que tenemos ahora, es que la class Order se ocupa tambien del metodo de pago, siendo mas prudente
-# que ambas actividades esten por separado, si queremos agregar un nuevo metodo de pago tendriamos que estar
+# El problema que tenemos ahora, es que la class Order se ocupa también del método de pago, siendo mas prudente
+# que ambas actividades estén por separado, si queremos agregar un nuevo método de pago tendríamos que estar
 # modificando la class Order cada vez que eliminemos o agreguemos uno.
 # **********************************************************************************
 # **********************************************************************************
-# Para resolver este problema creamos otra class llamada PaymentProcessor y sus metodos pay_debit y pay_credit.
-# De esta forma ya no necesitamos modificar la class Order para agregar un nuevo metodo de pago, ni tampoco especificar,
+# Para resolver este problema creamos otra class llamada PaymentProcessor y sus métodos pay_debit y pay_credit.
+# De esta forma ya no necesitamos modificar la class Order para agregar un nuevo método de pago, ni tampoco especificar,
 # a la hora de crear el objeto, que tipo de pago se va a efectuar, simplemente llamamos al method que necesitemos dentro
 # de la class PaymentProcessor.
 
@@ -107,17 +107,17 @@
 # **********************************************************************************
 # O -> OPEN/CLOSE PRINCIPLE
 
-# Este principio se refiere a que deberiamos ser capaces de extender el codigo existente con nuevas funcionalidades
+# Este principio se refiere a que deberíamos ser capaces de extender el código existente con nuevas funcionalidades
 # sin necesidad de modificarlo.
-# Basicamente si queremos agregar otro tipo de pago, debemos modificar la class PaymentProcessor constantemente, sea
-# para agregar o eliminar un metodo de pago.
+# Básicamente si queremos agregar otro tipo de pago, debemos modificar la class PaymentProcessor constantemente, sea
+# para agregar o eliminar un método de pago.
 # **********************************************************************************
 # **********************************************************************************
 # En este caso usamos ABC para convertir el method pay de la class PaymentProcessor en un method abstracto 
-# (un method que esta declarado pero que no tiene una implementacion de por si).
-# A continuacion creamos 3 nuevas child classes: DebitPaymentProcessor, CreditPaymentProcessor y PaypalPaymentProcessor 
+# (un method que esta declarado pero que no tiene una implementación de por si).
+# A continuación creamos 3 nuevas child classes: DebitPaymentProcessor, CreditPaymentProcessor y PaypalPaymentProcessor 
 # que heredan las propiedades y methods de PaymentProcessor.
-# Ahora cada vez que queramos agregar un metodo de pago a nuestro codigo, simplemente creamos una nueva child class.
+# Ahora cada vez que queramos agregar un método de pago a nuestro código, simplemente creamos una nueva child class.
 
 
 # from abc import ABC, abstractmethod
@@ -178,16 +178,16 @@
 # **********************************************************************************
 # L -> LISKOV SUBSTITUTION PRINCIPLE
 
-# Nuestro siguiente problema a resolver es el siguiente: no todos los metodos de pago usan el mismo metodo de verificacion.
-# Este principio se refiere a que si tenemos objetos en nuestro codigo, deberiamos ser capaces de reemplazar estos objetos
-# por instancias de sus "subtipos" o "subclases" sin alterar el buen funcionamiento del codigo.
+# Nuestro siguiente problema a resolver es el siguiente: no todos los métodos de pago usan el mismo método de verificación.
+# Este principio se refiere a que si tenemos objetos en nuestro código, deberíamos ser capaces de reemplazar estos objetos
+# por instancias de sus "subtipos" o "subclases" sin alterar el buen funcionamiento del código.
 # **********************************************************************************
 # **********************************************************************************
 # En este caso el problema es nuestra class PaypalPaymentProcessor y su instancia security_code, ya que Paypal utiliza 
-# verificacion por email y no por codigo de segurirad.
-# Para resolver este problema le pedimos a la class PaymentProcessor que ya no pida el security_code, a continuacion 
-# creamos una funcion __init__ en cada class de metodo de pago, donde pida como instancia su metodo de verificacion.
-# De esta manera si queremos agregar otro metodo de pago, con otro tipo de verificacion, podemos creas su class y su nueva
+# verificación por email y no por código de seguridad.
+# Para resolver este problema le pedimos a la class PaymentProcessor que ya no pida el security_code, a continuación 
+# creamos una funcion __init__ en cada class de método de pago, donde pida como instancia su método de verificación.
+# De esta manera si queremos agregar otro método de pago, con otro tipo de verificación, podemos creas su class y su nueva
 # instancia sin problemas.
 
 # from abc import ABC, abstractmethod
@@ -259,13 +259,13 @@
 # I -> INTERFACE SEGREGATION PRINCIPLE
 
 # Este principio se refiere a que es mejor, ya sea por funcionamiento, mantenimiento y entendimiento de los programadores
-# tener una interfaz para cada proposito en vez de tener una para varios.
+# tener una interfaz para cada propósito en vez de tener una para varios.
 # **********************************************************************************
 # **********************************************************************************
-# En este caso hemos agregado a la class PaymentProcessor un methdo llamado auth_sms, este metodo se encargaria de verificar
-# mediante un codigo SMS si el pago es valido o no.
-# Como podemos ver el pago con tarjeta de credito no requiere una verificacion SMS, por lo que seria innecesario traer a
-# colacion el method auth_sms.
+# En este caso hemos agregado a la class PaymentProcessor un methdo llamado auth_sms, este método se encargaría de verificar
+# mediante un código SMS si el pago es valido o no.
+# Como podemos ver el pago con tarjeta de crédito no requiere una verificación SMS, por lo que seria innecesario traer a
+# colación el method auth_sms.
 
 # from abc import ABC, abstractmethod
 
@@ -342,10 +342,10 @@
 #         print(f"Verificando email: {self.email_address}")
 #         order.status = "paid"
 
-#------------------- Solucion -----------------
+#------------------- Solución -----------------
 # Creamos una nueva child class de PaymentProcessor llamada PaymentProcessor_SMS y procedemos a colocar el abstractmethod
-# auth_sms dentro. Luego usamos PaymentProcessor_SMS como parent class para las child class que utilicen el metodo de 
-# autentificacion por SMS, puediendo de esta manera eliminar las lineas de codigo innecesarias en CreditPaymentProcessor.
+# auth_sms dentro. Luego usamos PaymentProcessor_SMS como parent class para las child class que utilicen el método de 
+# autentificación por SMS, pudiendo de esta manera eliminar las líneas de código innecesarias en CreditPaymentProcessor.
 
 # from abc import ABC, abstractmethod
 
@@ -419,12 +419,12 @@
 #         print(f"Verificando email: {self.email_address}")
 #         order.status = "paid"
 
-#------------------- Solucion 2-----------------
-# Para mejorar el codigo usaremos composicion en vez de heredar la class.
-# Creamos una nueva class llamada SMSauth que verifica el codigo SMS y lo autoriza mediante un booleano.
-# De esta manera las classes DebitPaymentProcessor y PaypalPaymentProcessor volveran a recibir como parent a la class
-# PaymentProcessor, pero les agregaremos una nueva instancia de autorizacion, deribada de la nueva class SMSAuth.
-# De esta manera la verificacion ya no se hara dentro de la class del metodo de pago.
+#------------------- Solución 2-----------------
+# Para mejorar el código usaremos composición en vez de heredar la class.
+# Creamos una nueva class llamada SMSauth que verifica el código SMS y lo autoriza mediante un booleano.
+# De esta manera las classes DebitPaymentProcessor y PaypalPaymentProcessor volverán a recibir como parent a la class
+# PaymentProcessor, pero les agregaremos una nueva instancia de autorización, derivada de la nueva class SMSAuth.
+# De esta manera la verificación ya no se hará dentro de la class del método de pago.
 
 # from abc import ABC, abstractmethod
 
@@ -509,13 +509,13 @@
 # **********************************************************************************
 # D -> Dependency Inversion
 
-# Lo que haremos aqui sera hacer que las clases dependan de clases abstractas en lugar de clases no abstractas.
+# Lo que haremos aquí será hacer que las clases dependan de clases abstractas en lugar de clases no abstractas.
 # Hacer que las clases hereden de las clases abstractas.
 # **********************************************************************************
 # **********************************************************************************
-# En este caso crearemos una nueva class abstracta llamada Authorized, de la que deribaran las classes que se utilicen
-# para autenticacion.
-# Sumaremos como ejemplo una nueva class de autenticacion llamada NotARobot, en la que verificaremos (muy simplemente)
+# En este caso crearemos una nueva class abstracta llamada Authorized, de la que derivaran las classes que se utilicen
+# para autenticación.
+# Sumaremos como ejemplo una nueva class de autenticación llamada NotARobot, en la que verificaremos (muy simplemente)
 # si el usuario es un robot.
 
 from abc import ABC, abstractmethod
