@@ -3,64 +3,64 @@ import random
 
 #***********************************************************************************
 #***********************************************************************************
-# Acoplamiento y cohesion son terminos que ocurren juntos muy frecuentemente. El acoplamiento se refiere a la 
-# interdependencia entre modulos, mientras que la cohesion describe cómo se relacionan las funciones dentro de 
+# Acoplamiento y cohesión son términos que ocurren juntos muy frecuentemente. El acoplamiento se refiere a la
+# interdependencia entre módulos, mientras que la cohesión describe cómo se relacionan las funciones dentro de
 # un modulo independiente.
-# A continuacion tomamos de ejemplo dos clases que se encargan del registro de vehiculos:
+# A continuación tomamos de ejemplo dos clases que se encargan del registro de vehículos:
 # RegistroVehiculo se encarga de generar una id y una licencia(patente) en base a esa id.
-# Por otro lado Aplicacion se encarga de registrar el vehiculo:
-#           Tomar y guardar en una variable el id y la patente (de RegistroVehiculo), crear el precio mediante un catalogo,
-#           chequear el tipo de impuesto a agregar dependiendo del vehiculo (el impuesto cambia si el vehiculo es electrico)
-#           y calcular el total del impuesto. 
-#           Para luego imprimir toda la informacion del vehiculo creado.
+# Por otro lado Aplicación se encarga de registrar el vehículo:
+#   Tomar y guardar en una variable el id y la patente (de RegistroVehiculo), crear el precio mediante un catalogo,
+#   chequear el tipo de impuesto a agregar dependiendo del vehículo (el impuesto cambia si el vehículo es eléctrico)
+#   y calcular el total del impuesto.
+#   Para luego imprimir toda la información del vehículo creado.
 #***********************************************************************************
 #***********************************************************************************
 
 # class RegistroVehiculo:
 
-#     def generar_vehiculo_id(self, length):
-#         return ''.join(random.choices(string.ascii_uppercase, k=length))
+#   def generar_vehiculo_id(self, length):
+#     return ''.join(random.choices(string.ascii_uppercase, k=length))
 
-#     def generar_vehiculo_licencia(self, id):
-#         return f"{id[:2]}-{''.join(random.choices(string.digits, k=2))}-{''.join(random.choices(string.ascii_uppercase, k=2))}"
+#   def generar_vehiculo_licencia(self, id):
+#     return f"{id[:2]}-{''.join(random.choices(string.digits, k=2))}-{''.join(random.choices(string.ascii_uppercase, k=2))}"
 
 
 # class Aplicacion:
 
-#     def registrar_vehiculo(self, marca: string):
-#         #crea una instancia del registro
-#         registro = RegistroVehiculo()
+#   def registrar_vehiculo(self, marca: string):
+#     #crea una instancia del registro
+#     registro = RegistroVehiculo()
 
-#         #genera un id del vehiculo de 12 caracteres
-#         vehiculo_id = registro.generar_vehiculo_id(12)
+#     #genera un id del vehículo de 12 caracteres
+#     vehiculo_id = registro.generar_vehiculo_id(12)
 
-#         #ahora genera una patente para el vehiculo
-#         #usango los primeros dos caracteres del id del vehiculo
-#         patente = registro.generar_vehiculo_licencia(vehiculo_id)
+#     #ahora genera una patente para el vehículo
+#     #usando los primeros dos caracteres del id del vehículo
+#     patente = registro.generar_vehiculo_licencia(vehiculo_id)
 
-#         #computa el precio de catalogo
-#         precio_catalogo = 0
-#         if marca == "Tesla Model 3":
-#             precio_catalogo = 60000
-#         elif marca == "Volkswagen ID3":
-#             precio_catalogo = 35000
-#         elif marca == "BMW 5":
-#             precio_catalogo = 45000
-        
-#         #computa el porcentaje de impuestos (el precio normal por catalogo es 5%, menos para vehiculos electricos, donde es 2%)
-#         porcentaje_imp = 0.05
-#         if marca == "Tesla Model 3" or marca == "Volkswagen ID3":
-#             porcentaje_imp = 0.02
-        
-#         #computa el total de impuesto
-#         total_imp = porcentaje_imp * precio_catalogo
+#     #computa el precio de catalogo
+#     precio_catalogo = 0
+#     if marca == "Tesla Model 3":
+#       precio_catalogo = 60000
+#     elif marca == "Volkswagen ID3":
+#       precio_catalogo = 35000
+#     elif marca == "BMW 5":
+#       precio_catalogo = 45000
+   
+#     #computa el porcentaje de impuestos (el precio normal por catalogo es 5%, menos para vehículos eléctricos, donde es 2%)
+#     porcentaje_imp = 0.05
+#     if marca == "Tesla Model 3" or marca == "Volkswagen ID3":
+#       porcentaje_imp = 0.02
+   
+#     #computa el total de impuesto
+#     total_imp = porcentaje_imp * precio_catalogo
 
-#         #imprime la informacion del vehiculo registrado
-#         print("Registro completo. Informacion del Vehiculo:")
-#         print(f"Marca: {marca}")
-#         print(f"Id: {vehiculo_id}")
-#         print(f"Patente: {patente}")
-#         print(f"Total impuestos: {total_imp}")
+#     #imprime la información del vehículo registrado
+#     print("Registro completo. Información del Vehículo:")
+#     print(f"Marca: {marca}")
+#     print(f"Id: {vehiculo_id}")
+#     print(f"Patente: {patente}")
+#     print(f"Total impuestos: {total_imp}")
 
 # app = Aplicacion()
 # app.registrar_vehiculo("BMW 5")
@@ -68,30 +68,31 @@ import random
 
 #***********************************************************************************
 #***********************************************************************************
-# Como podemos ver tenemos dos clases que se encargan de varios factores a la vez y tienen muchas responsabilidades, 
-# y que si modificaramos una de las dos, la otra clase seguramente dejaria de funcionar. 
+# Como podemos ver tenemos dos clases que se encargan de varios factores a la vez y tienen muchas responsabilidades,
+# y que si modificaramos una de las dos, la otra clase seguramente dejaría de funcionar.
 
-# Por ejemplo, si quisieramos agregar un nuevo vehiculo electrico,
-# tendriamos que agregar una nueva linea al if de precio_catalogo, y ademas agregar otro "or" en el if de porcentaje_imp,
-# y asi con cada nuevo vehiculo agregado.
+# Por ejemplo, si quisiéramos agregar un nuevo vehículo eléctrico,
+# tendríamos que agregar una nueva linea al if de precio_catalogo, y además agregar otro "or" en el if de porcentaje_imp,
+# y así con cada nuevo vehículo agregado.
 
-# Otro ejemplo de poca cohesion es que si cambiara algun metodo de RegistroVehiculo tendria que tambien 
+# Otro ejemplo de poca cohesión es que si cambiara algún método de RegistroVehiculo tendría que también
 # cambiarlo en Aplicacion (cuando es llamado):
 
-#       RegistroVehiculo                                Aplicacion
+#    RegistroVehiculo                Aplicacion
 
 # generar_vehiculo_id(self, length) -> vehiculo_id = registro.generar_vehiculo_id(12)
 
-# generar_vehiculo_licencia(self, id) -> patente = registro.generar_vehiculo_licencia(vehiculo_id)
+# generar_vehiculo_licencia(self, id) -> patente = registro.generar_vehiculo_licencia(vehiculo_id) 
 #***********************************************************************************
 #***********************************************************************************
-# A continuacion mejoramos nuestro codigo tomando en cuenta los distintos tipos de datos generados en nuestras class
+# A continuación mejoramos nuestro código tomando en cuenta los distintos tipos de datos generados en nuestras class
 # y separandolos como es debido.
 
 
-# Primer separamos la informacion del vehiculo y tenemos en cuanta con un booleano si es electrico o no.
-# En esta misma informacion tenemos el impuesto y calculamos el total (esto podriamos tambien hacerlo en otra class)
-# Luego creamos un metodo para imprimir la marca y el impuesto total.
+# Primer separamos la información del vehículo y tenemos en cuanta con un booleano si es eléctrico o no.
+# En esta misma información tenemos el impuesto y calculamos el total (esto podríamos también hacerlo en otra class)
+# Luego creamos un método para imprimir la marca y el impuesto total.
+
 class VehiculoInfo:
     marca: str
     precio_catalogo: int
@@ -114,7 +115,7 @@ class VehiculoInfo:
 
 
 # En esta class tenemos el id, la patente, y llamamos a la anterior class como info.
-# Luego imprimimos el id y la patente, a su vez llamamos el metodo de info para sumar los datos impresos.
+# Luego imprimimos el id y la patente, a su vez llamamos el método de info para sumar los datos impresos.
 class Vehiculo:
     id: str
     patente: str
@@ -139,9 +140,9 @@ class RegistroVehiculo:
     def agregar_vehiculo_info(self, marca, electrico, precio_catalogo):
         self.vehiculo_info[marca] = VehiculoInfo(marca, electrico, precio_catalogo)
 
-    # Como vemos, ahora podemos agregar nuevos vehiculos sin necesidad de modificar nada.
+    # Como vemos, ahora podemos agregar nuevos vehículos sin necesidad de modificar nada.
     # Ya que ahora el factor determinante para calcular los impuestos es un booleano que insertamos al introducir el nuevo
-    # vehiculo (si es electrico o no).
+    # vehículo (si es eléctrico o no).
     def __init__(self):
         self.agregar_vehiculo_info("Tesla Model 3", True, 60000)
         self.agregar_vehiculo_info("Volkswagen ID3", True, 30000)
@@ -159,7 +160,7 @@ class RegistroVehiculo:
         return Vehiculo(vehiculo_id, patente, self.vehiculo_info[marca])
 
 
-# Ahora Aplicacion solo se encarga de llamar a RegistroVehiculo y su metodo crear_vehiculo.
+# Ahora Aplicación solo se encarga de llamar a RegistroVehiculo y su método crear_vehiculo.
 class Aplicacion:
 
     def registrar_vehiculo(self, marca: string):
